@@ -58,6 +58,12 @@ class User extends Model
                 'default' => new \stdClass,
                 'example' => ['theme' => 'pink', 'timezone' => 'UTC'],
             ])
+            ->addRule('oauth_access_token', [
+                'type' => self::TYPE_STRING,
+                'description' => 'OAuth2 access token used for the last user login.',
+                'default' => '',
+                'example' => 'MTQ0NjJkZmQ5OTM2NDE1ZTZjNGZmZjI3',
+            ])
         ;
     }
 

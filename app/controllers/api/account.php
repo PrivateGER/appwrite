@@ -513,6 +513,7 @@ App::get('/v1/account/sessions/oauth2/:provider/redirect')
                         'registration' => \time(),
                         'reset' => false,
                         'name' => $name,
+                        'oauth_access_token' => $accessToken
                     ], ['email' => $email]);
                 } catch (Duplicate $th) {
                     throw new Exception('Account already exists', 409);
@@ -524,6 +525,8 @@ App::get('/v1/account/sessions/oauth2/:provider/redirect')
                     throw new Exception('Failed saving user to DB', 500);
                 }
             }
+
+            $user->setAttribute("oauth_access_token", $accessToken);
         }
 
         if (Auth::USER_STATUS_BLOCKED == $user->getAttribute('status')) { // Account is blocked
